@@ -1,0 +1,8 @@
+README.txt
+setup.py
+breviform.egg-info/PKG-INFO
+breviform.egg-info/SOURCES.txt
+breviform.egg-info/dependency_links.txt
+breviform.egg-info/not-zip-safe
+breviform.egg-info/requires.txt
+breviform.egg-info/top_level.txt
