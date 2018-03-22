@@ -74,13 +74,13 @@ Getting Started
     
 - Run init, plan, and apply, and output. . .By firing up python, and:
 
-    >>> from breviform.breviform import runBreviForm as rBF
-    >>> tf_workdir='PATH/TO/TF_WORKING_DIR'
-    >>> r = rBF(cmds=['tf_plan', 'tf_apply', 'tf_output'], tfargsmap={}, tfvars={}, tf_workdir=tf_workdir)
+    `>>> from breviform.breviform import runBreviForm as rBF`
+    `>>> tf_workdir='PATH/TO/TF_WORKING_DIR'`
+    `>>> r = rBF(cmds=['tf_plan', 'tf_apply', 'tf_output'], tfargsmap={}, tfvars={}, tf_workdir=tf_workdir)`
     
 - And of course:
     
-    >>> r = rBF(cmds=['tf_destroy'], tfargsmap={}, tfvars={}, tf_workdir=tf_workdir)
+    `>>> r = rBF(cmds=['tf_destroy'], tfargsmap={}, tfvars={}, tf_workdir=tf_workdir)`
 
 Terraform supports a large number of arguments when invoked from the command line, and 
 breviform attempts to suuply defaults that are sensible when doing away woth the CLI.  
