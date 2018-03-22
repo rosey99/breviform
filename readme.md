@@ -17,7 +17,7 @@ efforts, as the API is open and flexible. Potential benefits include:
 This work is largely based on the terraform-python project, but aims to be 
 smaller, and leave all administration and maintenance of the 
 terraform runtime environment to another tool, or a human. Many thanks to 
-the devs over there for there efforts:
+the devs over there for their efforts:
 
    [python-terraform](https://github.com/beelit94/python-terraform)
  
