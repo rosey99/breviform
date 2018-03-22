@@ -41,10 +41,14 @@ created hosts in an end-to-end, automated process. For an idea of what is
 possible, have a look at [flowmastah-artifact](https://github.com/rosey99/flowmastah-artifact) which contains workflow for 
 the related python/celery project called "flowmastah." 
 
+Simple Openstack example configurations are located in the "terraform" 
+directory of flowmastah-artifact.
+
 Flowmastah-artifact is used in development and testing of the flowmastah 
 project (ongoing, pre-release), and demonstrates a state-driven workflow 
 configuration, that itself relies on git for versioning of artifacts as well 
 as workflow configuration which is. . .Just another artifact, after all.
+
  
 "Brevi" means small, humble, or brief. Hopefully, all three.
 
