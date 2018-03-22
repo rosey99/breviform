@@ -73,7 +73,7 @@ Getting Started
 
     [Terraform Site](https://www.terraform.io/)
     
-- Run init, plan, and apply, and output. . .By firing up python, and:
+- Run init, plan, apply, and output. . .By firing up python, and:
 
     `>>> from breviform.breviform import runBreviForm as rBF`
     
@@ -86,7 +86,7 @@ Getting Started
     `>>> r = rBF(cmds=['tf_destroy'], tfargsmap={}, tfvars={}, tf_workdir=tf_workdir)`
 
 Terraform supports a large number of arguments when invoked from the command line, and 
-breviform attempts to suuply defaults that are sensible when doing away woth the CLI.  
+breviform attempts to supply defaults that are sensible when doing away woth the CLI.  
 
 
 Enjoy!
