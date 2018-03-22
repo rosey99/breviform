@@ -6,7 +6,7 @@ moment breviform has no external dependencies save terraform itself.
 
 This is an effort to automate terraform using python, and in so doing, 
 eliminate CLI dependence while automating capture and inspection of 
-results. By and large, terraform plays along well with expernal automation 
+results. By and large, terraform plays along well with external automation 
 efforts, as the API is open and flexible. Potential benefits include:
 
   * Upstream fetching/decryptiion of artifacts (e.g., vars, certs)
