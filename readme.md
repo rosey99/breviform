@@ -70,12 +70,15 @@ Getting Started
     `cd env`
 
 - Create your terraform working directory. If you don't know what this is:
+
     [Terraform Site](https://www.terraform.io/)
     
 - Run init, plan, and apply, and output. . .By firing up python, and:
 
     `>>> from breviform.breviform import runBreviForm as rBF`
+    
     `>>> tf_workdir='PATH/TO/TF_WORKING_DIR'`
+    
     `>>> r = rBF(cmds=['tf_plan', 'tf_apply', 'tf_output'], tfargsmap={}, tfvars={}, tf_workdir=tf_workdir)`
     
 - And of course:
