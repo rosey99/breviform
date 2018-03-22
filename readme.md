@@ -4,8 +4,8 @@ breviform
 Breviform is a python 3.5+ version of terraform automation. At the 
 moment breviform has no external dependencies save terraform itself.
 
-This is an effort to automate terraform using python, and in so doing,  
-eliminating CLI dependence and automating capture and inspection of 
+This is an effort to automate terraform using python, and in so doing, 
+eliminate CLI dependence and automating capture and inspection of 
 results. By and large, terraform play along well with expernal automation 
 efforts, as the API is open and flexible. Potential benefits include:
 
@@ -18,7 +18,7 @@ This work is largely based on the terraform-python project, but aims to be
 smaller, and leave all administration and maintenance of the 
 terrform runtime environment to another tool, or a human.
 
-   [Celery Docs](https://github.com/beelit94/python-terraform)
+   [python-terraform](https://github.com/beelit94/python-terraform)
  
 Breviform removes python 2 compatibility, along with most of the 
 command logic that is not essential to the basic work of creating, 
@@ -35,11 +35,14 @@ As far as thread-safety goes, terraform wants its own process space, and
 while running breviform in a threaded environment may work great, 
 it has not been tested. The typical use case would be to run breviform for 
 each target (AWS, VMWare, Openstack) and each image or system profile, and 
-then run Minsible and/or Fybre over one or more subset of the 
+then run Minsible and/or Fybre over one or more subsets of the 
 created hosts in an end-to-end, automated process.
 
 As for the name, the good people at HashiCorp chose to appropriate 
 the latin word for "earth." Ambitious, eh?
+
+"Brevi" means small, humble, or brief. Third declension and all. There it is.
+
 
 Getting Started
 ---------------
