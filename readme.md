@@ -5,18 +5,19 @@ Breviform is a python 3.5+ version of terraform automation. At the
 moment breviform has no external dependencies save terraform itself.
 
 This is an effort to automate terraform using python, and in so doing, 
-eliminate CLI dependence and automating capture and inspection of 
-results. By and large, terraform play along well with expernal automation 
+eliminate CLI dependence while automating capture and inspection of 
+results. By and large, terraform plays along well with expernal automation 
 efforts, as the API is open and flexible. Potential benefits include:
 
-  * Upstream fetching/decryptiion of artifacts (e.g., host vars, certs)
+  * Upstream fetching/decryptiion of artifacts (e.g., vars, certs)
   * Integration with a workflow system such as Celery Canvas
-  * Integration of multiple tools (e.g., terraform, fabric/fybre) in a single process 
+  * Integration of multiple tools (e.g., terraform, fabric/fybre and ansible/misible) in a single process 
   * Use breviform in support of a stateful, immutable infrastructure model
 
 This work is largely based on the terraform-python project, but aims to be 
 smaller, and leave all administration and maintenance of the 
-terrform runtime environment to another tool, or a human.
+terrform runtime environment to another tool, or a human. Many thanks to 
+the devs over there for there efforts:
 
    [python-terraform](https://github.com/beelit94/python-terraform)
  
@@ -36,12 +37,16 @@ while running breviform in a threaded environment may work great,
 it has not been tested. The typical use case would be to run breviform for 
 each target (AWS, VMWare, Openstack) and each image or system profile, and 
 then run Minsible and/or Fybre over one or more subsets of the 
-created hosts in an end-to-end, automated process.
+created hosts in an end-to-end, automated process. For an idea of what is 
+possible, have a look at [flowmastah-artifact](https://github.com/rosey99/flowmastah-artifact) which contains workflow for 
+the related python/celery prject called "flowmastah." 
 
-As for the name, the good people at HashiCorp chose to appropriate 
-the latin word for "earth." Ambitious, eh?
-
-"Brevi" means small, humble, or brief. Third declension and all. There it is.
+Flowmastah-artifact is used in development and testing of the flowmastah 
+project (ongoing, pre-release), and demonstrates a state-driven workflow 
+configuration, that itself relies on git for versioning of artifacts as well 
+as workflow configuration which is. . .Just another artifact, after all.
+ 
+"Brevi" means small, humble, or brief. Hopefully, all three.
 
 
 Getting Started
