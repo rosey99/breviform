@@ -66,7 +66,7 @@ Getting Started
 
     `env/bin/pip install --upgrade pip setuptools`
 
-- Install the project in editable mode. This should also install the latest Ansible.
+- Install the project in editable mode.
 
     `env/bin/pip install -e PATH_TO_BREVIFORM_DIR`
 
@@ -91,7 +91,7 @@ Getting Started
     `>>> r = rBF(cmds=['tf_destroy'], tfargsmap={}, tfvars={}, tf_workdir=tf_workdir)`
 
 Terraform supports a large number of arguments when invoked from the command line, and 
-breviform attempts to supply defaults that are sensible when doing away woth the CLI.  
+breviform attempts to supply defaults that are sensible when doing away with the CLI.  
 
 
 Enjoy!
