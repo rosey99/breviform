@@ -311,7 +311,7 @@ class BreviForm:
         be revealed by CL args, and also to never write anything 
         sensitive to the fs, via history, for example.
         """
-        return { ''.join(['TF_VAR_', k]):v for k,v in tfvars }
+        return { ''.join(['TF_VAR_', k]):v for k,v in tfvars.items() }
         
     def format_result(self, cmd, res):
             """
