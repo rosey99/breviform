@@ -90,6 +90,9 @@ Getting Started
     
     `>>> r = rBF(cmds=['tf_plan', 'tf_apply', 'tf_output'], tfargsmap={}, tfvars={}, tf_workdir=tf_workdir)`
     
+- Or:
+    `>>> r = rBF(cmds=['tf_plan', 'tf_apply', 'tf_output'], tfargsmap={}, tfvars={'count': 3}, tf_workdir=tf_workdir)`
+    
 - And of course:
     
     `>>> r = rBF(cmds=['tf_destroy'], tfargsmap={}, tfvars={}, tf_workdir=tf_workdir)`
