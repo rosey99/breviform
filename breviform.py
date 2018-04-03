@@ -155,15 +155,17 @@ class BreviForm:
         # exec
         r = self.tf_cmdexec(cmd, tfargs=extra_args, tfvars={})
         # format the results inline in this case
+        res = list(r)
         try:
             rcode = r[0]
             logger.debug('Output returned: %s', rcode)
             if rcode == 0:
-                res = json.loads(r[1])
+                res[1] = json.loads(res[1])
             else:
                 logger.warn('Output returned %s: Error: %s', rcode, str(r[2]))
         except Exception as e:
             logger.warn('Failed to load/parse terrform output command: %s', str(e))
+        res = self.format_result(cmd, res)
         return res
          
     def tf_cmdexec(self, cmd: str, tfargs: Sequence, tfvars: Mapping, tf_workdir: str='') -> Tuple[int, str, str]:
@@ -311,6 +313,8 @@ class BreviForm:
         be revealed by CL args, and also to never write anything 
         sensitive to the fs, via history, for example.
         """
+        if not tfvars:
+            tfvars = {}
         return { ''.join(['TF_VAR_', k]):v for k,v in tfvars.items() }
         
     def format_result(self, cmd, res):
@@ -337,8 +341,8 @@ class BreviForm:
             # results back from a different formatter and
             # detailed_output is set to true
             failed = False if res[0] == 2 and cmd == 'plan' else failed
-            invocd = {'modname':cmd, 'failed': failed, 'args': res[3]}
-            result = dict(zip(['ret_code', 'output', 'errors'], res))
+            invocd = {'modname':cmd, 'failed': failed, 'args': res[3], 'errors': res[2]}
+            result = dict(zip(['ret_code', 'output'], res))
             return {'invocation': invocd, 'result': result }
             
     def load_state_file(self, path: str='') -> dict:
@@ -361,7 +365,11 @@ class BreviForm:
                 logger.warn('Failed to decode/load json: Err->%s', str(e))
         return tfstate
 
-def runBreviForm(cmds: Sequence[str], tfargsmap: Mapping[str, Sequence], tfvars: Mapping[str, Any], tf_workdir: str) -> Tuple[int, Sequence]:
+def runBreviForm(cmds: Sequence[str], 
+                tfargsmap: Mapping[str, Sequence], 
+                tfvars: Mapping[str, Any], 
+                tf_workdir: str
+                ) -> Sequence:
     """
     4 required args:
     cmds: sequence of 'tf_init', tf_plan, etc.
@@ -380,42 +388,43 @@ def runBreviForm(cmds: Sequence[str], tfargsmap: Mapping[str, Sequence], tfvars:
     2. Runs each command in the order provided
     """
     res = []
+    errs = []
     failed = False
-    ret_code = 0
     bf = BreviForm(tf_workdir=tf_workdir)
+    if tfargsmap == None:
+        tfargsmap = {}
+    if tfvars == None:
+        tfvars = {}
     for cmd in cmds:
-        this_res = {}
+        this_r = {}
         invocd = {'failed': False}
+        tfargs = tfargsmap.get(cmd, [])
         emsg = ''
         try:
             meth = getattr(bf, cmd)
         except Exception as e:
-            ret_code += 1
             emsg = str(e)
             failed = True
+            errs.append(emsg)
             logger.warn('Failed to resolve BreviForm method, error: %s', emsg)
         if not failed:
-            tfargs = tfargsmap.get(cmd, [])
             try:
                 # PITA. . .could be fixed by standardizing sigs
                 if cmd == 'tf_init':
                     # different sig for now anyway
-                    this_res['results'] = meth(tfargs=tfargs, tf_workdir=tf_workdir)
+                    this_r = meth(tfargs=tfargs, tf_workdir=tf_workdir)
                 elif cmd == 'tf_output':
-                    this_res['results'] = meth(tfargs=tfargs)
+                    this_r = meth(tfargs=tfargs)
                 else:
-                    this_res['results'] = meth(tfargs=tfargs, tfvars=tfvars, tf_workdir=tf_workdir)
+                    this_r = meth(tfargs=tfargs, tfvars=tfvars, tf_workdir=tf_workdir)
             except Exception as e:
-                ret_code += 1
                 emsg = str(e)
                 failed = True
                 logger.warn('BreviForm command execution failed for command <%s>, error: %s', cmd, emsg)
-        invocd['failed'] = failed
-        invocd['errs'] = emsg
-        this_res['invocation'] = invocd
-        res.append(this_res)
-        if failed: #ugh
-            break
-            
-    return ret_code, res
+            res.append(this_r)
+            if this_r.get('invocation', {}).get('failed'):
+                emsg = this_r.get('invocation', {}).get('errors')
+                logger.warn('BreviForm reported failure for command <%s>, error(s): %s', cmd, emsg)
+                break            
+    return res
     
